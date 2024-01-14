@@ -316,7 +316,7 @@ ggplot(lines_data, aes(x = expected_ran, y = on_time)) +
 # Bar plot comparing each line to the mean monthly trips
 ggplot(lines_data, aes(x = reorder(line_color, -month_trips, sum), y = month_trips, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_hline(yintercept = wmata_monthly_trips_average, linetype = "dashed", color = "black", size = 1) + #runs across to show the mean
+  geom_hline(yintercept = wmata_monthly_trips_average, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
   labs(x = "Line Color", y = "Average Monthly Trips", title = "Average Monthly Trips by Line Compared to Mean",
        subtitle = "Source: Washington Metropolitan Area Transit Authority") +
   scale_fill_manual(values = line_colors) +
@@ -325,7 +325,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -month_trips, sum), y = month_tri
 # Bar plot comparing each line to the mean Expected Ran Percentage
 ggplot(lines_data, aes(x = reorder(line_color, -expected_ran, sum), y = expected_ran, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_hline(yintercept = wmata_expected_ran_average, linetype = "dashed", color = "black", size = 1) + #runs across to show the mean
+  geom_hline(yintercept = wmata_expected_ran_average, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
   labs(x = "Line Color", y = "Expected Run Percentage", title = "Expected Run Percentage by Line Compared to Mean",
        subtitle = "Source: Washington Metropolitan Area Transit Authority") +
   scale_fill_manual(values = line_colors) +
@@ -335,7 +335,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -expected_ran, sum), y = expected
 # Bar plot comparing each line to the mean On Time Percentage
 ggplot(lines_data, aes(x = reorder(line_color, -on_time, sum), y = on_time, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_hline(yintercept = wmata_on_time_average, linetype = "dashed", color = "black", size = 1) + #runs across to show the mean
+  geom_hline(yintercept = wmata_on_time_average, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
   labs(x = "Line Color", y = "On-Time Percentage", title = "On-Time Percentage by Line Compared to Mean",
        subtitle = "Source: Washington Metropolitan Area Transit Authority") +
   scale_fill_manual(values = line_colors) +
@@ -345,7 +345,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -on_time, sum), y = on_time, fill
 # Bar plot comparing each line to the mean Headway
 ggplot(lines_data, aes(x = reorder(line_color, -headway, sum), y = headway, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_hline(yintercept = wmata_headwayavg, linetype = "dashed", color = "black", size = 1) + #runs across to show the mean
+  geom_hline(yintercept = wmata_headwayavg, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
   labs(x = "Line Color", y = "Average Headway", title = "Average Headway by Line Compared to Mean",
        subtitle = "Source: Washington Metropolitan Area Transit Authority") +
   scale_fill_manual(values = line_colors) +
