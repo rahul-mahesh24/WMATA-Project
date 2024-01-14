@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 
 #loaded in data for WMATA Rail Lines and assigned to lines_data
-#I collected data from the official WMATA website and their 2023 Reports
+#I collected data from the official WMATA website and their 2023 Reports and Disclosures
 
 lines_data <- read_excel("Data/lines_data.xlsx")
 View(lines_data)
