@@ -1,10 +1,12 @@
 #WMATA Analysis - Lines#
+#the focus of this part of the project is analyzing the lines of the WMATA and comparing them to one another
 
-#loaded required packages for data exploration#
+#loaded required packages for data exploration
 library(tidyverse)
 library(readxl)
 
-#loaded in data for WMATA Rail Lines and assigned to lines_data#
+#loaded in data for WMATA Rail Lines and assigned to lines_data
+#I collected data from the official WMATA website and their 2023 Reports
 
 lines_data <- read_excel("Data/lines_data.xlsx")
 View(lines_data)
@@ -77,7 +79,7 @@ threshold <- 0.7
 significant_pairs <- abs(correlations) > threshold & correlations != 1
 significant_pairs #reprint matrix with TRUE/FALSE on meeting threshold
 
-# Extract row and column names of significant correlations by finding TRUE
+# Extracting row and column names of significant correlations by finding TRUE
 
 pairs_above_threshold <- which(significant_pairs, arr.ind = TRUE)
 rownames(correlations)[pairs_above_threshold[, 1]]
@@ -103,7 +105,7 @@ cor_distance_headway #correlation between distance covered and higher headway ti
 
 #the first two variables effectively show the same relationship
 #most interested in investigating these last two
-#also will investigate cor_stations_month, cor_stations_distance, 
+#also will want to investigate cor_stations_month and cor_stations_distance 
 
 #Putting all the correlation data into a data frame
 
@@ -111,7 +113,7 @@ cor_data <- as.data.frame(correlations)
 cor_data <- rownames_to_column(cor_data, var = "Var1") %>%
     pivot_longer(cols = -Var1, names_to = "Var2", values_to = "value")
   
-# Plotting a heat map of all variables for better visualization
+# Plotting a heat map of all variables for better visualization of correlations
 
 ggplot(cor_data, aes(x = Var1, y = Var2, fill = value)) +
   geom_tile() +
@@ -120,7 +122,7 @@ ggplot(cor_data, aes(x = Var1, y = Var2, fill = value)) +
   theme_minimal() + #removed border
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) #adjusted height of x-axis text to avoid overlap on heat map
 
-#Creating variables to represent WMATA Rail averages or totals
+#Creating variables to represent WMATA Rail averages or totals to compare against or use later
 
 wmata_expected_ran_average <- mean(lines_data$expected_ran)
 wmata_on_time_average <- mean(lines_data$on_time)
@@ -146,13 +148,13 @@ wmata_headwayavg
 
 cor_testPH <- cor.test(lines_data$pct_trips, lines_data$headway)
 cor_testPH
-#indicated statistical significance 
+#indicated statistical significance because p-val was under .05
 
 ###### correlation testing on cor_distance_headway ######
 
 cor_testDH <- cor.test(lines_data$distance_cov, lines_data$headway)
 cor_testDH
-#does not indicate statistical significance 
+#does not indicate statistical significance because p-val is above .05
 
 # Creating a scatter plot of distance covered vs. headway times (just for visualization, given lack of statistical significance)
 ggplot(lines_data, aes(x = distance_cov, y = headway)) +
@@ -188,7 +190,9 @@ pairs_above_threshold2 <- which(moderate_pairs, arr.ind = TRUE)
 rownames(correlations)[pairs_above_threshold2[, 1]]
 colnames(correlations)[pairs_above_threshold2[, 2]]
 
-#New Correlations
+#I manually paired them up after this, as it was fairly quick and efficient
+
+#New correlations from the pairs that I just created
 
 cor_dist_montrips <- correlations["distance_cov", "month_trips"] # distance_cov - month_trips
 cor_dist_ontime <- correlations["distance_cov", "on_time"] # distance_cov - on_time
@@ -214,7 +218,7 @@ cor_pct_stacov #8
 cor_stacov_montrips #9
 cor_stacov_ontime #10
 
-#correlation testing
+#correlation testing to check for statistical significance (p-value below .05)
 
 cor_test1 <- cor.test(lines_data$distance_cov, lines_data$month_trips) #non-significant
 cor_test1
