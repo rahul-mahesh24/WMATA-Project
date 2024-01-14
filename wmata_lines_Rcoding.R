@@ -348,7 +348,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -headway, sum), y = headway, fill
   theme_minimal() +
   coord_cartesian(ylim = c(0,20)) #makes it easier to see the difference
 
-# Create a pie chart for pct_trips with labels
+# Created a pie chart for pct_trips with labels
 ggplot(lines_data, aes(x = "", y = pct_trips, fill = line_color)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar("y", start = 0) +  # Convert the bar plot to a polar coordinate system
@@ -363,3 +363,12 @@ ggplot(lines_data, aes(x = "", y = pct_trips, fill = line_color)) +
   geom_text(aes(label = paste0(pct_trips, "%")), 
             position = position_stack(vjust = 0.5),
             color = ifelse(lines_data$line_color == "Blue", "white", "black")) #black text on blue wasn't readable so I made it white
+
+#Simple bar chart to show how many stations each line covers, a metric to show accessibility and reach
+ggplot(lines_data, aes(x = reorder(line_color, -stations_cov, sum), y = stations_cov, fill = line_color)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Line Color", y = "Stations Covered", title = "Stations Covered by Line",
+       subtitle = "Source: Washington Metropolitan Area Transit Authority") +
+  scale_fill_manual(values = line_colors) +
+  theme_minimal()
+
