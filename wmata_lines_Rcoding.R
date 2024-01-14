@@ -267,6 +267,7 @@ ggplot(lines_data, aes(x = stations_cov, y = month_trips)) +
   geom_smooth(method = "lm", se = FALSE) +  # Adding a linear regression line
   labs(x = "Stations Covered", y = "Monthly Trips", title = "Scatter Plot of Stations Covered against Monthly Trips", subtitle = "Source: Washington Metropolitan Area Transit Authority")
 #looking at this graph, the lack of a relationship is clear, deviation from trend line provide good insights into over/under performers
+#ex. Red and Orange cover a similiar number of stations but widely differ on monthly trips
 
 # Creating a scatter plot (Stations Covered, Distance Covered)
 
@@ -295,7 +296,7 @@ ggplot(lines_data, aes(x = expected_ran, y = headway)) +
   geom_text(aes(label = line_color), nudge_x = 0, nudge_y = 0.5, check_overlap = TRUE, size = 3, color = line_colors) +
   geom_smooth(method = "lm", se = FALSE) +  # Adding a linear regression line
   labs(x = "Percent of Expected Trains that Ran", y = "Headway Times", title = "Scatter Plot of Expected Trains that Ran and Headway Times", subtitle = "Source: Washington Metropolitan Area Transit Authority")
-#this graph shows no correlation
+#this graph shows no correlation, points are scattered but there is grouping among Blue/Silver/Orange
 
 ggplot(lines_data, aes(x = distance_cov, y = on_time)) +
   geom_point() +  
@@ -314,6 +315,7 @@ ggplot(lines_data, aes(x = expected_ran, y = on_time)) +
 #comparing values against previously calculated means
 
 # Bar plot comparing each line to the mean monthly trips
+# Mean is represented by the dashed black line running through the graph
 ggplot(lines_data, aes(x = reorder(line_color, -month_trips, sum), y = month_trips, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_hline(yintercept = wmata_monthly_trips_average, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
@@ -323,6 +325,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -month_trips, sum), y = month_tri
   theme_minimal()
 
 # Bar plot comparing each line to the mean Expected Ran Percentage
+# Mean is represented by the dashed black line running through the graph
 ggplot(lines_data, aes(x = reorder(line_color, -expected_ran, sum), y = expected_ran, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_hline(yintercept = wmata_expected_ran_average, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
@@ -343,6 +346,7 @@ ggplot(lines_data, aes(x = reorder(line_color, -on_time, sum), y = on_time, fill
   coord_cartesian(ylim = c(80, 95)) #makes it easier to see the difference
 
 # Bar plot comparing each line to the mean Headway
+# Mean is represented by the dashed black line running through the graph
 ggplot(lines_data, aes(x = reorder(line_color, -headway, sum), y = headway, fill = line_color)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_hline(yintercept = wmata_headwayavg, linetype = "dashed", color = "black", linewidth = 1) + #runs across to show the mean
